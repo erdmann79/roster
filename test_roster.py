@@ -24,11 +24,11 @@ class TestRoster(unittest.TestCase):
             john = r.get_student("Johnny Carson")
             for assignment, grade in [(3, 90), (6, 94), (9, 92)]:
                 john["grades"][assignment] = grade
-            self.assertTrue(r.class_average() == 618.7/7)
+            self.assertTrue(r.class_average() == 616.6/7)
             r.save("Jones_2019_Updated.xlsx")
 
         wb = load_workbook("Jones_2019_Updated.xlsx")
-        self.assertTrue(wb.get_sheet_by_name("Student_1")["B10"].value == 94)
+        self.assertTrue(wb.get_sheet_by_name("Student_1")["B12"].value == 94)
         wb.close()
 
     def test_delete_roster_student(self):
@@ -48,7 +48,7 @@ class TestRoster(unittest.TestCase):
         self.assertTrue(len(sheet_names) == 7)
         self.assertTrue(sheet_names[0] == "Roster")
         self.assertTrue(sheet_names[-1] == "Student_6")
-        self.assertTrue(wb.get_sheet_by_name("Student_3")["B7"] == 92)
+        self.assertTrue(wb.get_sheet_by_name("Student_3")["B7"].value == 92)
         wb.close()
 
 if __name__ == "__main__":
