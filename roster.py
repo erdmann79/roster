@@ -1,76 +1,83 @@
 import pandas, openpyxl
+from openpyxl import load_workbook
+
 
 class Roster(object):
-    """ Build this class.
     """
-    def __init__(self, filename):
-        pass
+    Summery of Roster Class.
 
+    Mrs. Jones, a teacher at Billings Elementary School, has been asked by the administration to
+    track her students' grades in a roster stored in an Excel file. Unfortunatly, Mrs. Jones had a
+    bad experience with Excel as a child and as solemnly sworn never to use Excel again. Your task
+    is to create a Python class for reading and manipulating a provided Excel file so Mrs. Jones
+    doesn't haven't to use Excel to successfully record her students' grades.
+
+    """
+
+    def __init__(self, filename):
+        """
+        Init SampleClass with blah.
+
+        Args:
+            filename: Name of the workbook file.
+        """
+        self.workbook = load_workbook(filename)
+        return
 
     def get_student_names(self):
+        """
+        Get student names.
 
+        Returns:
+            List of student names
 
-        r.get_student_names()
-        r.get_student("Johnny Carson")
-        r.class_average()
-        r.delete_student("Allen Dalton")
-        r.save("Jones_2019_Reduced.xlsx")
+        """
+        return self.workbook.get_student_names().list()
 
+    def get_student(self, name):
+        """
+        Get student.
 
+        Args:
+            name: Name of the student.
 
+        Returns:
+            This is a description of what is returned.
 
+        """
+        return self.workbook.get_student(name).str()
 
-        with Roster("Jones_2019.xlsx") as r:
-            student_names = r.get_student_names()
-            self.assertTrue(len(student_names) == 7)
-            self.assertTrue("Robert Waters" in student_names)
+    def class_average(self):
+        """
+        Get class average.
 
-            catherine = r.get_student("Catherine Hitchens")
-            self.assertTrue(catherine["id"] == 3)
-            self.assertTrue(isinstance(catherine["grades"], pandas.Series))
-            self.assertTrue(len(catherine["grades"]) == 10)
-            self.assertTrue(catherine["grades"][4] == 86)
+        Returns:
+            int class average.
 
-            self.assertTrue(r.class_average() == 614.1/7)
+        """
+        return self.workbook.get_class_average().int()
 
+    def delete_student(self, name):
+        """
+        Remove a student from the workbook.
 
-    def write_roster(self):
+        Args:
+            filename: Name of the student.
 
+        """
+        self.workbook.get_student_names(name)
+        return
 
+    def save(self, filename):
+        """
+        Write workbook to file.
 
-        with Roster("Jones_2019.xlsx") as r:
-            john = 
-            for assignment, grade in [(3, 90), (6, 94), (9, 92)]:
-                john["grades"][assignment] = grade
-            self.assertTrue(r.class_average() == 616.6/7)
-            r.save("Jones_2019_Updated.xlsx")
+        Args:
+            filename: Name of the workbook file.
 
-        wb = load_workbook("Jones_2019_Updated.xlsx")
-        self.assertTrue(wb.get_sheet_by_name("Student_1")["B12"].value == 94)
-        wb.close()
+        Returns:
+            This is a description of what is returned.
 
-
-    def delete_roster_student(self):
-        student_count = 0
-        with Roster("Jones_2019.xlsx") as r:
-            student_count = len(r.get_student_names())
-            self.assertTrue(student_count == 7)
-            self.assertTrue(r.get_student("William Thomas")["id"] == 5)
-            r.delete_student("Allen Dalton")
-            student_count = len(r.get_student_names())
-            self.assertTrue(student_count == 6)
-            self.assertTrue(r.get_student("William Thomas")["id"] == 4)
-            r.save("Jones_2019_Reduced.xlsx")
-
-        wb = load_workbook("Jones_2019_Reduced.xlsx")
-        sheet_names = wb.get_sheet_names()
-        self.assertTrue(len(sheet_names) == 7)
-        self.assertTrue(sheet_names[0] == "Roster")
-        self.assertTrue(sheet_names[-1] == "Student_6")
-        self.assertTrue(wb.get_sheet_by_name("Student_3")["B7"].value == 92)
-        wb.close()
-
-
-
-
-
+        """
+        self.workbook.save_workbook()
+        return
