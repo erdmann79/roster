@@ -4,6 +4,11 @@ from pprint import pprint
 from itertools import islice
 
 
+class Student:
+
+    def __init__(self, my_dataframe):
+        self.my_dataframe = my_dataframe
+
 class Roster(object):
     """
     Summery of Roster Class.
@@ -69,6 +74,11 @@ class Roster(object):
             This is a description of what is returned.
 
         """
+
+        
+
+        
+
         if name in self.get_student_names():
             student = {}
             assingment_results = []
@@ -80,13 +90,48 @@ class Roster(object):
             if name == first + " " + last:
                 student["id"] = id_number
                 break
+
+
+
+
         for i, student_sheet in enumerate(self.workbook):
             if i == 0:
                 continue
             if name == student_sheet["B2"].internal_value:
-                student["student_sheet"] = student_sheet
-                student["student_sheet_dataframe"] = pandas.DataFrame(student_sheet.values)
-                # print('*************0*')
+                #student["student_sheet"] = student_sheet.title
+
+                print('*************0*')
+
+                data = student_sheet.values
+                # Get the first line in file as a header line
+                
+                next(data)
+                next(data)
+                next(data)
+                next(data)
+                columns = next(data)[0:]
+
+                print(columns)
+                df = pandas.DataFrame(data, columns=columns)
+                df = df.rename(columns={"Grade": "grades"})
+                #student['id'] = id_number
+                student['grades'] = Student(df['grades'])
+
+                #
+                #df["student_sheet"] = student_sheet.title
+                #student["student_sheet_dataframe"] = df
+                student = df
+                #student['grades'] = df['grades']
+                #print(df['Grade'])
+                #print(student["student_sheet_dataframe"])
+
+                #print(student["student_sheet_dataframe"]["grades"])
+
+                #print('*************1*')
+                #student["student_sheet_dataframe"] = pandas.DataFrame(student_sheet.values)
+                #print(student["student_sheet_dataframe"])
+
+                
 
                 # df = pandas.read_excel('29.xlsx', engine='openpyxl',index_col=None)
 
@@ -104,9 +149,9 @@ class Roster(object):
 
                 # print('**************')
 
-                for (assingment_result,) in student_sheet.iter_rows(min_row=6, min_col=2, max_col=2, values_only=True):
-                    assingment_results.append(assingment_result)
-                student["grades"] = pandas.Series(assingment_results)
+                #for (assingment_result,) in student_sheet.iter_rows(min_row=6, min_col=2, max_col=2, values_only=True):
+                #    assingment_results.append(assingment_result)
+                #student["grades"] = pandas.Series(assingment_results)
 
 
 
@@ -119,9 +164,10 @@ class Roster(object):
                 #        min_row=6, min_col=1, max_col=2, values_only=True
                 #    )[0]
                 #)
-                print(student["grades"])
+                print(student)
+                print('*1**************')
 
-        return student
+                return student
 
     def class_average(self):
         """
@@ -194,9 +240,35 @@ class Roster(object):
 
 if __name__ == "__main__":
     with Roster("Jones_2019.xlsx") as roster_obj:
-        student_names = roster_obj.get_student_names()
-        print(student_names)
-        student_record = roster_obj.get_student("Johnny Carson")
+        
+        #student_names = roster_obj.get_student_names()
+        #print(student_names)
+
+
+        john = roster_obj.get_student("Johnny Carson")
+
+        print("***** Main ************************")
+        print()
+        print('*********before***************')
+        print(john)
+        print(john["grades"][6],85)
+        print(roster_obj.class_average(),614.1 / 7)        
+        for assignment, grade in [(3, 90), (6, 94), (9, 92)]:
+            john["grades"][assignment] = grade
+        print()
+        print('*********after*************')
+        print(john["grades"][6],94)
+        print(roster_obj.class_average(),614.1 / 7)
+
+        john = roster_obj.get_student("Johnny Carson")
+        print(john)
+        print(john["grades"][6],94)
+        print(roster_obj.class_average(),614.1 / 7)
+        print('**********************')
+
+
+
+
     #    pprint(student_record)
     #    class_avg = roster_obj.class_average()
     #    print(class_avg)
