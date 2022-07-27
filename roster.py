@@ -1,9 +1,12 @@
-import pandas, openpyxl
+#!bin/env/python
+
+"""This module does blah blah."""
+
 from openpyxl import load_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from pprint import pprint
-from itertools import islice
 
+import pandas
 
 class Student(object):
     def __init__(self, name, id_number, student_sheet):
@@ -16,7 +19,6 @@ class Student(object):
         self.name = name
         self.first_name = name.split(" ")[0]
         self.last_name = name.split(" ")[1]
-        # self.id = student_sheet["B2"].internal_value
         self.id = id_number
         self.student_sheet_title = student_sheet.title
         self.student_sheet = student_sheet
@@ -31,12 +33,15 @@ class Student(object):
         self.grades = dataframe["grades"]
 
     def __str__(self):
+        """Return item name."""
         return self.name
 
     def __getitem__(self, item):
+        """Get item by index."""
         return getattr(self, item)
 
     def __setitem__(self, key, value):
+        """Set item by index."""
         setattr(self, key, value)
 
 
@@ -63,25 +68,7 @@ class Roster(object):
         #    print(student_name['firstname'])
 
         self.filename = filename
-        # self.roster_sheet = self.workbook["Roster"]
         self.students = []
-
-        # self.workbook = None
-        # self.roster_sheet = None
-        # self.first_name_column = None
-        # self.last_name_column = None
-
-        # if name in self.get_student_names():
-        #    student = {}
-        #    assingment_results = []
-        # for (id_number, first, last) in self.roster_sheet.iter_rows(
-        #    min_row=2, min_col=1, max_col=3, values_only=True
-        # ):
-        #    if not first and not last:
-        #        break
-        #    if name == first + " " + last:
-        #        student["id"] = id_number
-        #        break
 
     def __enter__(self):
         """Open the workbook."""
@@ -182,7 +169,7 @@ class Roster(object):
         """
         student_avg_list = []
         for student in self.students:
-            student_avg_list.append(student['grades'].mean())
+            student_avg_list.append(student["grades"].mean())
         class_average = sum(student_avg_list) / len(student_avg_list)
         return class_average
 
@@ -193,10 +180,8 @@ class Roster(object):
         Args:
             filename: Name of the student.
         """
-        #print("**start**********************")
-        #print(len(self.get_student_names()))
         student_obj = self.get_student(name)
-        self.workbook.remove(student_obj['student_sheet'])
+        self.workbook.remove(student_obj["student_sheet"])
         student_list = self.get_student_names()
         shift_register = 2
         for i, student_name in enumerate(student_list):
@@ -204,18 +189,16 @@ class Roster(object):
             row = i + shift_register
             id_number = i + shift_register - 1
             if student_name == name:
-                #print("remove", name, "row", row, "id", id_number)
+                # print("remove", name, "row", row, "id", id_number)
                 self.roster_sheet.delete_rows(row)
                 shift_register = 1
                 continue
             if shift_register == 1:
                 self.roster_sheet[f"A{row}"] = id_number
-                student_obj['student_sheet']["B1"] = id_number
-                student_obj['id'] = id_number
-                student_obj['student_sheet_title'] = f"Student_{id_number}"
-                student_obj['student_sheet'].title = f"Student_{id_number}"
-        #print(len(self.get_student_names()))
-        #print("**finish**********************")
+                student_obj["student_sheet"]["B1"] = id_number
+                student_obj["id"] = id_number
+                student_obj["student_sheet_title"] = f"Student_{id_number}"
+                student_obj["student_sheet"].title = f"Student_{id_number}"
 
     def save(self, filename=None):
         """
@@ -227,61 +210,22 @@ class Roster(object):
         """
         row_offset = 3
         for student in self.students:
-            dataframe = pandas.DataFrame(student['grades'])
+            dataframe = pandas.DataFrame(student["grades"])
             rows = dataframe_to_rows(dataframe)
             for r_idx, row in enumerate(rows, 1):
                 for c_idx, value in enumerate(row, 1):
                     if r_idx == 1 or r_idx == 2:
                         continue
-                    student['student_sheet'].cell(row=r_idx+row_offset, column=c_idx, value=value)
-
+                    student["student_sheet"].cell(
+                        row=r_idx + row_offset, column=c_idx, value=value
+                    )
 
         if not filename:
             filename = self.filename
-        #print(filename)
 
         self.workbook.save(filename)
 
 
 if __name__ == "__main__":
     with Roster("Jones_2019.xlsx") as roster_obj:
-
-        # student_names = roster_obj.get_student_names()
-        # print(student_names)
-
-        john = roster_obj.get_student("Johnny Carson")
-
         print("***** Main ************************")
-        print()
-        print("*********before***************")
-        print(john)
-        print(john["grades"][6], 85)
-        print(roster_obj.class_average(), 614.1 / 7)
-        for assignment, grade in [(3, 90), (6, 94), (9, 92)]:
-            john["grades"][assignment] = grade
-
-        print()
-        print("*********after*************")
-        print(john["id"])
-        print(john)
-        print(john["grades"][6], 94)
-        print("averages")
-        print(roster_obj.class_average(), 614.1 / 7)
-
-        john = roster_obj.get_student("Johnny Carson")
-        print(john)
-        print(john["grades"][6], 94)
-        print(roster_obj.class_average(), 614.1 / 7)
-        print("**********************")
-
-    #    pprint(student_record)
-    #    class_avg = roster_obj.class_average()
-    #    print(class_avg)
-    #    print(614.1 / 7)
-#
-#    roster_obj.delete_student("Allen Dalton")
-#    roster_obj.save("Jones_2019_Reduced.xlsx")
-#    workbook_reduced = load_workbook("Jones_2019_Reduced.xlsx")
-#
-# sheet_names = workbook_reduced.get_sheet_names()
-# print(len(sheet_names))

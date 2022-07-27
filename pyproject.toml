@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "roster"
+version = "0.1.0"
+description = "This repository assesses your understanding of certain Python concepts and demonstrates your Python proficiency by crafting a solution class."
+authors = ["Tim Thomas <timothy.thomas@airbus-sv.com>", "Eric W. Erdmann <eric.erdmann79@gmail.com>"]
+license = "Copyright 2019 Tim Thomas"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pandas = "^1.4.3"
+openpyxl = "^3.0.10"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,12 +1,12 @@
-# roster
+# Roster
 
 This repository serves as a programming project to assess your understanding of certain Python concepts and give you an opportunity to demonstrate your Python proficiency by crafting a solution class and sharing your design decisions.
 
-## the problem
+## The problem
 
 Mrs. Jones, a teacher at Billings Elementary School, has been asked by the administration to track her students' grades in a roster stored in an Excel file. Unfortunatly, Mrs. Jones had a bad experience with Excel as a child and as solemnly sworn never to use Excel again. Your task is to create a Python class for reading and manipulating a provided Excel file so Mrs. Jones doesn't haven't to use Excel to successfully record her students' grades.
 
-### grading
+### Grading
 
 You will be graded on:
 - the architecture and elegance of your code
@@ -15,31 +15,8 @@ You will be graded on:
 
 It is not necessarily expected that you will be able to construct a solution that can pass all the unittests, so focus more on quality if you feel you will have a hard time completing the project.
 
-## python setup
 
-For your convenience, scripts for setting up a Python virtual environment are provided. You must have python installed to use these scripts.
-
-### MacOS and Unix
-
-To setup a Python 2.7 environment on MacOS or linux use the ``setup.sh`` script.
-
-```bash
-hostname:username$ sh setup.sh
-```
-
-For a Python 3 environment, use the ``setup3.sh`` script. Note that the ``openpyxl`` dependency requires Python >= 3.5.
-
-### Windows
-
-To setup a Python 2.7 environment on Windows use the ``setup.bat`` script.
-
-```batch
-C:\Users\username\Documents\roster> setup.bat
-```
-
-For a Python 3 environment, use the ``setup3.bat`` script. Note that the ``openpyxl`` dependency requires Python >= 3.5.
-
-## repository setup
+## Repository setup
 
 In order to share your work with me for review, you will need to setup a private GitHub repository. Here is how that is done:
 
@@ -66,3 +43,20 @@ Branch private set up to track remote branch master from private.
 ```
 
 Now when you commit changes to the `private` branch and push them, they will go to your private repository and be accessible for review by me.
+
+## Python setup
+
+For your convenience, setting up the virtual environment has been automated using poetry. https://python-poetry.org/ You must have python with poetry installed.
+
+Navigate to the root directory of the project and run "poetry install"
+
+```bash
+~/projects/roster$ poetry install
+````
+Switch to the interactive enviroment (PYTHON) by typing "poetry shell". Note the envire thwe python activation and path you the virtual environment, as well as the change to the prompt to oinclude the current python shell.
+
+```bash
+$ poetry shell
+~/projects/roster$ . /home/<username>/.cache/pypoetry/virtualenvs/roster-8HzyDvUH-py3.8/bin/activate
+(roster-8HzyDvUH-py3.8) $~/projects/roster$
+````
