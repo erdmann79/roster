@@ -32,7 +32,7 @@ class TestRoster(unittest.TestCase):
             roster_obj.save("Jones_2019_Updated.xlsx")
 
         workbook = load_workbook("Jones_2019_Updated.xlsx")
-        self.assertTrue(workbook.get_sheet_by_name("Student_1")["B12"].value == 94)
+        self.assertTrue(workbook["Student_1"]["B12"].value == 94)
         workbook.close()
 
     def test_delete_roster_student(self):
