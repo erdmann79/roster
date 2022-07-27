@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "roster"
+name = "roster-test"
 version = "0.1.0"
 description = "This repository assesses your understanding of certain Python concepts and demonstrates your Python proficiency by crafting a solution class."
 authors = ["Tim Thomas <timothy.thomas@airbus-sv.com>", "Eric W. Erdmann <eric.erdmann79@gmail.com>"]
@@ -15,3 +15,6 @@ openpyxl = "^3.0.10"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cli_command_name = 'package_name:function'

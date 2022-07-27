@@ -48,15 +48,30 @@ Now when you commit changes to the `private` branch and push them, they will go 
 
 For your convenience, setting up the virtual environment has been automated using poetry. https://python-poetry.org/ You must have python with poetry installed.
 
+###Install Poetry
+
+```bash
+curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+````
+Feel free to look here for more instructions. Updating Poetry is very easy by the way ```poetry update```.
+
+Install the virtual environment
+
+```bash
+~/projects/roster$ poetry install
+````
+
 Navigate to the root directory of the project and run "poetry install"
 
 ```bash
 ~/projects/roster$ poetry install
 ````
-Switch to the interactive enviroment (PYTHON) by typing "poetry shell". Note the envire thwe python activation and path you the virtual environment, as well as the change to the prompt to oinclude the current python shell.
+Switch to the interactive enviroment (PYTHON) by typing "poetry shell". Note the environment, the python activation, and path your the virtual environment, as well as the change to the prompt to include the current python shell and version.
 
 ```bash
 $ poetry shell
 ~/projects/roster$ . /home/<username>/.cache/pypoetry/virtualenvs/roster-8HzyDvUH-py3.8/bin/activate
 (roster-8HzyDvUH-py3.8) $~/projects/roster$
 ````
+
+
