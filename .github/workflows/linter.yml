@@ -52,11 +52,11 @@ jobs:
           # Change to 'master' if your main branch differs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       ################################
       # Run PEP8 against code base #
       ################################
-      - name: 'Run PEP8'
+      - name: PEP8 pycodestyle Code Base
         uses: quentinguidee/pep8-action@v1
         with:
           arguments: '--max-line-length=120'

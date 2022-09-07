@@ -1,12 +1,9 @@
 #!bin/env/python
 
 """This module does blah blah."""
-
+import pandas
 from openpyxl import load_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
-from pprint import pprint
-
-import pandas
 
 
 class Student(object):
