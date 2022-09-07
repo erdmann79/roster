@@ -8,6 +8,7 @@ from pprint import pprint
 
 import pandas
 
+
 class Student(object):
     def __init__(self, name, id_number, student_sheet):
         """
