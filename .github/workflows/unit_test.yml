@@ -14,6 +14,15 @@ jobs:
         os: [ubuntu-18.04]
     runs-on: ${{ matrix.os }}
     steps:
+
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.0.0
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Lint Code Base'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
       - uses: actions/checkout@v2
 
       # If you wanted to use multiple Python versions, you'd have specify a matrix in the job and
