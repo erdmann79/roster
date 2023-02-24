@@ -70,7 +70,7 @@ Switch to the interactive enviroment (PYTHON) by typing "poetry shell". Note the
 ```bash
 $ poetry shell
 ~/projects/roster$ . /home/<username>/.cache/pypoetry/virtualenvs/roster-8HzyDvUH-py3.8/bin/activate
-(roster-8HzyDvUH-py3.8) $~/projects/roster$
+(roster-8HzyDvUH-py3.8) $~/projects/roster$erdmann
 ````
 
 
